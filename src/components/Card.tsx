@@ -7,27 +7,35 @@ const Card = () => {
   const [inputSec, setInputSec] = useState("");
   const [sellToken, setSellToken] = useState("");
   const [buyToken, setBuyToken] = useState("");
-
+  const [price,setprice]=useState("");
+  console.log(price)
+ 
   useEffect(() => {
-  
-      const url = `https://sepolia.api.0x.org/price/v1/price?sellToken=${sellToken}&buyToken=${buyToken}&sellAmount=1000000000000000000`;
+    if(sellToken&&buyToken){
+      const url = ` https://api.0x.org/swap/v1/price?buyToken=${buyToken}&sellToken=${sellToken}&sellAmount=100000`;
       axios
         .get(url, {
           headers: { "0x-api-key": "f8a0dc95-a1b2-424b-9f91-839ea88e3e43" },
         })
         .then(function (response) {
+          setprice(response.data.price);
           console.log(response.data);
         })
         .catch(function (error) {
-          console.log("Error:", error);
+          console.log("its my error:", error);
         });
-    }, [sellToken, buyToken]);
+    }
+}, [sellToken, buyToken]);
 
+// useEffect(() => {
+//   if (price && inputOne) {
+//     setInputSec((price + inputOne));
+//   }
+// }, [price, inputOne]);
 
   const clearInputOne = () => {
     setInputOne("");
   };
-
 
   const clearInputSec = () => {
     setInputSec("");
@@ -52,24 +60,14 @@ const Card = () => {
               onChange={(e) => setSellToken(e.target.value)}
             >
               <option value="">choose</option>
-              <option value="0x2728DD8B45B788e26d12B13Db5A244e5403e7eda">
-                USDT
+              <option value="0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee">
+                ETH
               </option>
-              <option value="0x8a21CF9Ba08Ae709D64Cb25AfAA951183EC9FF6D">
-                LISK
-              </option>
-              <option value="0x0DB2a8Aa2E2C023Cfb61c617d40162cc9F4c27aB">
+              <option value="0x6b175474e89094c44da98b954eedeac495271d0f">
                 DAI
               </option>
-              <option value="0xdFf7Ebb3f88D5D097F08C5522115D0656cB42314">
-                OP
-              </option>
-              <option value="0xb5B81A928A20070e5E9E888615f018affEbfe8de">
-                ULT
-              </option>
-              <option value="0x80Db7eB011c8Ca7F36ea280E7B60971df6dDdCC4">
-                TTS
-
+              <option value="0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48">
+                 USD
               </option>
             </select>
           </div>
@@ -95,27 +93,16 @@ const Card = () => {
           <div className="flex justify-between">
             <select
               className="select select-bordered w-full max-w-xs"
-              onChange={(e) => setBuyToken(e.target.value)}
-            >
-              <option value="">choose</option>
-              <option value="0x2728DD8B45B788e26d12B13Db5A244e5403e7eda">
-                USDT
+              onChange={(e) => setSellToken(e.target.value)}>
+           <option value="">choose</option>
+              <option value="0xdac17f958d2ee523a2206206994597c13d831ec7">
+                ETH
               </option>
-              <option value="0x8a21CF9Ba08Ae709D64Cb25AfAA951183EC9FF6D">
-                LISK
-              </option>
-              <option value="0x0DB2a8Aa2E2C023Cfb61c617d40162cc9F4c27aB">
+              <option value="0x6b175474e89094c44da98b954eedeac495271d0f">
                 DAI
               </option>
-              <option value="0xdFf7Ebb3f88D5D097F08C5522115D0656cB42314">
-                OP
-              </option>
-              <option value="0xb5B81A928A20070e5E9E888615f018affEbfe8de">
-                ULT
-              </option>
-              <option value="0x80Db7eB011c8Ca7F36ea280E7B60971df6dDdCC4">
-                TTS
-                
+              <option value="0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48">
+                 USD
               </option>
             </select>
           </div>
@@ -126,16 +113,12 @@ const Card = () => {
           </div>
         </div>
 
-        <div className="container mt-2 mb-2">
-          <input
-            type="number"
-            placeholder="0.0"
-            className="input input-bordered input-secondary w-full max-w-xs"
-            value={inputSec}
-            onChange={(e) => setInputSec(e.target.value)}
-          />
-        </div>
-
+        <input
+  type="number"
+  placeholder="0.0"
+  className="input input-bordered input-secondary w-full max-w-xs"
+  // value={inputSec}
+    />clear
         <div className="card-actions">
           <button className="btn btn-active btn-neutral">connectwallet</button>
         </div>

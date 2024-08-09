@@ -9,24 +9,22 @@ const Card = () => {
   const [buyToken, setBuyToken] = useState("");
   const [price, setPrice] = useState("");
 
-    async function getPrice() {
-      if (sellToken && buyToken && inputOne) {
-        const url = `https://api.0x.org/swap/v1/price?buyToken=${buyToken}&sellToken=${sellToken}&sellAmount=${inputOne}`;
-        console.log(url);
-        try {   
-          const response = await axios.get(url, {
-            headers: { "0x-api-key": "f8a0dc95-a1b2-424b-9f91-839ea88e3e43" },
-          });
-          setPrice(response.data.buyAmount);
-          console.log(response.data.buyAmount);
-        } catch (err) {
-          console.log(err);
-        }
+  async function getPrice() {
+    if (sellToken && buyToken && inputOne) {
+      const url = `https://api.0x.org/swap/v1/price?buyToken=${buyToken}&sellToken=${sellToken}&sellAmount=${inputOne}`;
+      try {
+        const response = await axios.get(url, {
+          headers: { "0x-api-key": "f8a0dc95-a1b2-424b-9f91-839ea88e3e43" },
+        });
+        setPrice(response.data.buyAmount);
+      } catch (err) {
+        console.log(err);
       }
-    };
-    useEffect(() => {
-         getPrice();
-  }, [sellToken, buyToken, inputOne,inputSec]);
+    }
+  };
+  useEffect(() => {
+    getPrice();
+  }, [sellToken, buyToken, inputOne, inputSec]);
 
   const clearInputOne = () => {
     setInputOne("");
@@ -74,6 +72,7 @@ const Card = () => {
         <div className="container mt-2 mb-2">
           <input
             type="number"
+            min="0"
             value={inputOne}
             placeholder="0.0"
             className="input input-bordered input-secondary w-full max-w-xs"

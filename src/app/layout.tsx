@@ -19,19 +19,20 @@ import {
   QueryClientProvider,
   QueryClient,
 } from "@tanstack/react-query";
-import { polygonAmoy, sepolia } from "viem/chains";
+import {sepolia
+} from "viem/chains";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
 const config = getDefaultConfig({
   appName: 'My RainbowKit App',
   projectId: 'YOUR_PROJECT_ID',
-  chains: [sepolia],
+  chains: [mainnet],
   ssr: true, // If your dApp uses server side rendering (SSR)
 });
 
 const queryClient = new QueryClient();
-
 
 export default function RootLayout({
   children,
